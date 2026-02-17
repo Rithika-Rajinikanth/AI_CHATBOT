@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Legal AI Assistant</title>
+</head>
+<body>
+  <h2>⚖️ Internal Legal Assistant</h2>
+
+  <textarea id="q" rows="4" cols="80"
+    placeholder="Ask a legal question..."></textarea><br><br>
+
+  <button onclick="ask()">Ask</button>
+
+  <pre id="out"></pre>
+
+  <script>
+    async function ask() {
+      const res = await fetch("http://localhost:8000/ask", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ question: q.value })
+      })
+      const data = await res.json()
+      out.textContent = JSON.stringify(data, null, 2)
+    }
+  </script>
+</body>
+</html>
